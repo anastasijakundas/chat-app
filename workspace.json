@@ -28,7 +28,9 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/chat-frontend",
             "index": "apps/chat-frontend/src/index.html",
@@ -39,7 +41,9 @@
               "apps/chat-frontend/src/favicon.ico",
               "apps/chat-frontend/src/assets"
             ],
-            "styles": ["apps/chat-frontend/src/styles.scss"],
+            "styles": [
+              "apps/chat-frontend/src/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -82,12 +86,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/chat-frontend/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": [
+              "apps/chat-frontend/**/*.{ts,tsx,js,jsx}"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/chat-frontend"],
+          "outputs": [
+            "coverage/apps/chat-frontend"
+          ],
           "options": {
             "jestConfig": "apps/chat-frontend/jest.config.js",
             "passWithNoTests": true
@@ -116,7 +124,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/chat-frontend-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/chat-frontend-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
