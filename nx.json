@@ -8,16 +8,11 @@
     "nx.json": "*"
   },
   "affected": { "defaultBase": "master" },
-  "npmScope": "chat-app",
+  "npmScope": "chat-application",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "ZjIyMmI5NzktNWRjNS00MjYxLWEyNGEtZDViOGY1MWUyZTIzfHJlYWQtd3JpdGU=",
-        "canTrackAnalytics": false,
-        "showUsageWarnings": true
-      }
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
   "projects": {
@@ -26,5 +21,6 @@
       "tags": [],
       "implicitDependencies": ["chat-frontend"]
     },
+    "chat-backend": { "tags": [] }
   }
 }
