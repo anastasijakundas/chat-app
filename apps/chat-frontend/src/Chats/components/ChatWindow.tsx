@@ -8,7 +8,7 @@ import SendIcon from '@material-ui/icons/Send';
 import Message from './Message';
 import styles from '../Chats.module.scss';
 
-function ChatWindow({ chatData }) {
+function ChatWindow({ chatData, setMessageText, messageText, handleSubmitMessage }) {
   return (
     <Box className={styles.chatWindow}>
       <h3>{chatData?.header}</h3>
@@ -17,12 +17,18 @@ function ChatWindow({ chatData }) {
           <Message key={message.id} message={message} />
         ))}
         <form noValidate autoComplete="off" className={styles.inputForm}>
-          <TextField id="outlined-basic" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            name="message"
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+          />
           <IconButton
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
-            onClick={() => {}}
+            onClick={handleSubmitMessage}
             color="inherit"
           >
             <SendIcon color="primary" />

@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import ChatWindow from '../components/ChatWindow';
 import { chats } from '../../mockData';
 
 function ChatWindowContainer({ selectedChat }) {
+  const [messageText, setMessageText] = useState('');
+
   const chatData = chats.find((item) => item.id === selectedChat);
 
-  return <ChatWindow chatData={chatData} />;
+  const handleSubmitMessage = () => {
+    console.log(messageText);
+    setMessageText('');
+  };
+
+  return (
+    <ChatWindow
+      chatData={chatData}
+      messageText={messageText}
+      setMessageText={setMessageText}
+      handleSubmitMessage={handleSubmitMessage}
+    />
+  );
 }
 
 export default ChatWindowContainer;
