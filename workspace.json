@@ -133,7 +133,7 @@
     },
     "chat-backend": {
       "root": "apps/chat-backend",
-      "sourceRoot": "apps\\chat-backend\\src",
+      "sourceRoot": "apps/chat-backend/src",
       "projectType": "application",
       "targets": {
         "build": {
