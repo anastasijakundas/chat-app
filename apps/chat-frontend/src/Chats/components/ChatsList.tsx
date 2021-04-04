@@ -8,7 +8,11 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import styles from '../Chats.module.scss';
 import { chats } from '../../mockData';
 
-const ChatsList = ({ handleListItemClick, selectedChat }) => {
+const ChatsList = ({
+  handleListItemClick,
+  selectedChat,
+  handleCreateChatButtonClick,
+}) => {
   return (
     <Box className={styles.chatsListContainer}>
       <List
@@ -17,6 +21,7 @@ const ChatsList = ({ handleListItemClick, selectedChat }) => {
         subheader={
           <ListSubheader component="div" id="nested-list-subheader">
             Chats
+            <button onClick={handleCreateChatButtonClick}>Create +</button>
           </ListSubheader>
         }
         className={styles.list}

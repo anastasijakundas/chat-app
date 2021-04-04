@@ -5,6 +5,7 @@ import { chats } from '../../mockData';
 
 function ChatWindowContainer({ selectedChat }) {
   const [messageText, setMessageText] = useState('');
+  
 
   const chatData = chats.find((item) => item.id === selectedChat);
 

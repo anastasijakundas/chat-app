@@ -1,7 +1,18 @@
-import * as mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const ChatSchema = new mongoose.Schema({
-  participants: [],
-  messages: [{ sender: String, date: Date, text: String }],
-  title: String,
-});
+export type ChatDocument = Chat & Document;
+
+@Schema()
+export class Chat {
+  @Prop()
+  participants: [];
+
+  @Prop()
+  messages: [{ sender: string; date: Date; text: string }];
+
+  @Prop()
+  title: string;
+}
+
+export const ChatSchema = SchemaFactory.createForClass(Chat);
