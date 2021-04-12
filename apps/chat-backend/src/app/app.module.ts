@@ -10,9 +10,7 @@ import { ChatModule } from '../chat/chat.module';
 @Module({
   imports: [
     ChatRoomModule,
-    MongooseModule.forRoot(
-      'mongodb+srv://Nastassia:1998kundas@cluster0.rhegs.mongodb.net/ChatApp?retryWrites=true&w=majority'
-    ),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     UserModule,
     ChatModule,
   ],
