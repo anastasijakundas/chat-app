@@ -1,15 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { Chat } from '../../chat/schemas/chat.schema';
 
-export type UserDocument = User & Document;
+export type UserDocument = User & mongoose.Document;
 
 @Schema()
 export class User {
   @Prop()
-  email: string;
+  email?: string;
 
   @Prop()
-  name: string;
+  name?: string;
+
+  @Prop({type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' }] })
+  chats?: Chat[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

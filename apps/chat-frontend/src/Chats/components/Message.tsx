@@ -1,14 +1,19 @@
 import React from 'react';
 
 import styles from '../Chats.module.scss';
+import { IMessage } from '../../common/interfaces';
 
-function Message({ message }) {
-    return (
-        <div className={styles.message}>
-            <span>{message.senderName}</span>
-            <div className={styles.messageTextContainer}>{message.text}</div>
-        </div>
-    );
+interface MessageProps {
+  message: IMessage;
 }
+
+const Message: React.FC<MessageProps> = ({ message: { sender, text } }) => {
+  return (
+    <div className={styles.message}>
+      <span>{sender.name}</span>
+      <div className={styles.messageTextContainer}>{text}</div>
+    </div>
+  );
+};
 
 export default Message;

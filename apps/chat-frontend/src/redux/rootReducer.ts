@@ -1,7 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({});
+import chatSlice from '../Chats/slices';
 
-export type RootState = {};
+const rootReducer = combineReducers({chat: chatSlice});
+
+export type RootState = ReturnType<typeof rootReducer>;
 
 export default rootReducer;

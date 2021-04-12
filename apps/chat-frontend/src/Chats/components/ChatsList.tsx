@@ -6,12 +6,19 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
 import styles from '../Chats.module.scss';
-import { chats } from '../../mockData';
 
-const ChatsList = ({
+interface ChatsListProps {
+  handleListItemClick: (item: string) => void;
+  selectedChat: string;
+  handleCreateChatButtonClick: () => void;
+  chats: { _id: string; title: string }[];
+}
+
+const ChatsList: React.FC<ChatsListProps> = ({
   handleListItemClick,
   selectedChat,
   handleCreateChatButtonClick,
+  chats,
 }) => {
   return (
     <Box className={styles.chatsListContainer}>
@@ -26,14 +33,14 @@ const ChatsList = ({
         }
         className={styles.list}
       >
-        {chats.map((chat) => (
+        {chats?.map((chat) => (
           <ListItem
-            key={chat.id}
+            key={chat._id}
             button
-            onClick={() => handleListItemClick(chat.id)}
-            selected={chat.id === selectedChat}
+            onClick={() => handleListItemClick(chat._id)}
+            selected={chat._id === selectedChat}
           >
-            <ListItemText primary={chat.header} />
+            <ListItemText primary={chat.title} />
           </ListItem>
         ))}
       </List>

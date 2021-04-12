@@ -9,6 +9,7 @@ const middleware = [...getDefaultMiddleware()];
 const store = configureStore({
   reducer: rootReducer,
   middleware,
+  devTools: true,
 });
 
 export type AppDispatch = typeof store.dispatch;

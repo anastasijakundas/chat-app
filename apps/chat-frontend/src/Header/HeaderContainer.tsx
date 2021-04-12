@@ -6,7 +6,6 @@ import { ROUTES } from '../Navigation/constants';
 
 const HeaderContainer = () => {
   const history = useHistory();
-  console.log(history);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

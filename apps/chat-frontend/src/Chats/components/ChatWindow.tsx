@@ -7,13 +7,26 @@ import SendIcon from '@material-ui/icons/Send';
 
 import Message from './Message';
 import styles from '../Chats.module.scss';
+import { IMessage } from '../../common/interfaces';
 
-function ChatWindow({ chatData, setMessageText, messageText, handleSubmitMessage }) {
+interface ChatWindowProps {
+  chatData: any; // TODO add type
+  setMessageText: (messageText: string) => void;
+  messageText: string;
+  handleSubmitMessage: () => void;
+}
+
+const ChatWindow: React.FC<ChatWindowProps> = ({
+  chatData: { messages, title } = {},
+  setMessageText,
+  messageText,
+  handleSubmitMessage,
+}) => {
   return (
     <Box className={styles.chatWindow}>
-      <h3>{chatData?.header}</h3>
+      <h3>{title}</h3>
       <Paper variant="outlined" square className={styles.messagesWrapper}>
-        {chatData?.messages?.map((message) => (
+        {messages?.map((message: IMessage) => (
           <Message key={message.id} message={message} />
         ))}
         <form noValidate autoComplete="off" className={styles.inputForm}>
@@ -37,6 +50,6 @@ function ChatWindow({ chatData, setMessageText, messageText, handleSubmitMessage
       </Paper>
     </Box>
   );
-}
+};
 
 export default ChatWindow;

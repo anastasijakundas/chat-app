@@ -1,12 +1,21 @@
 import { IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class MessageDto {
+    @IsString()
+    sender: string;
+
+    @IsString()
+    text: string;
+}
 
 export class CreateChatDto {
     @IsString()
     creator: string;
 
-    // TODO add validation and change Type
-    participants: {id: string}[]
+    @IsString({ each: true })
+    participants: string[];
 
-    // TODO add validation and change Type
-    messages: { sender: string; time: string; text: string }[]
+    @Type(() => MessageDto)
+    message: MessageDto;
 }
