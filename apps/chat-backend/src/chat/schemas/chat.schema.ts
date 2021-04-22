@@ -6,7 +6,7 @@ export type ChatDocument = Chat & mongoose.Document;
 export type MessageDocument = Message & mongoose.Document;
 
 @Schema()
-class Message {
+export class Message {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   sender: User;
 

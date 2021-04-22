@@ -1,23 +1,12 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
+  "cli": { "defaultCollection": "@nrwl/react" },
   "defaultProject": "chat-frontend",
   "generators": {
     "@nrwl/react": {
-      "application": {
-        "style": "scss",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "scss"
-      },
-      "library": {
-        "style": "scss",
-        "linter": "eslint"
-      }
+      "application": { "style": "scss", "linter": "eslint", "babel": true },
+      "component": { "style": "scss" },
+      "library": { "style": "scss", "linter": "eslint" }
     }
   },
   "projects": {
@@ -28,9 +17,7 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/chat-frontend",
             "index": "apps/chat-frontend/src/index.html",
@@ -41,9 +28,7 @@
               "apps/chat-frontend/src/favicon.ico",
               "apps/chat-frontend/src/assets"
             ],
-            "styles": [
-              "apps/chat-frontend/src/styles.scss"
-            ],
+            "styles": ["apps/chat-frontend/src/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -74,28 +59,20 @@
         },
         "serve": {
           "executor": "@nrwl/web:dev-server",
-          "options": {
-            "buildTarget": "chat-frontend:build"
-          },
+          "options": { "buildTarget": "chat-frontend:build" },
           "configurations": {
-            "production": {
-              "buildTarget": "chat-frontend:build:production"
-            }
+            "production": { "buildTarget": "chat-frontend:build:production" }
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/chat-frontend/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["apps/chat-frontend/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/chat-frontend"
-          ],
+          "outputs": ["coverage/apps/chat-frontend"],
           "options": {
             "jestConfig": "apps/chat-frontend/jest.config.js",
             "passWithNoTests": true
@@ -124,9 +101,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/chat-frontend-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/chat-frontend-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -138,16 +113,12 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/chat-backend",
             "main": "apps/chat-backend/src/main.ts",
             "tsConfig": "apps/chat-backend/tsconfig.app.json",
-            "assets": [
-              "apps/chat-backend/src/assets"
-            ]
+            "assets": ["apps/chat-backend/src/assets"]
           },
           "configurations": {
             "production": {
@@ -165,25 +136,36 @@
         },
         "serve": {
           "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "chat-backend:build"
-          }
+          "options": { "buildTarget": "chat-backend:build" }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/chat-backend/**/*.ts"
-            ]
-          }
+          "options": { "lintFilePatterns": ["apps/chat-backend/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/chat-backend"
-          ],
+          "outputs": ["coverage/apps/chat-backend"],
           "options": {
             "jestConfig": "apps/chat-backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "types": {
+      "root": "libs/types",
+      "sourceRoot": "libs/types/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/types/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/types"],
+          "options": {
+            "jestConfig": "libs/types/jest.config.js",
             "passWithNoTests": true
           }
         }

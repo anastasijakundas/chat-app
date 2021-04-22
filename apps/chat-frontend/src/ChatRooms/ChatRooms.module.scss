@@ -1,0 +1,30 @@
+@import '../common/colors.scss';
+
+.roomsListWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .room {
+    width: 250px;
+    margin: 20px 10px 5px;
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: $black;
+    }
+  }
+}
+
+.createChatRoomDialog {
+    padding: 40px;
+  .createChatRoomForm {
+    display: flex;
+    flex-direction: column;
+
+    & > div {
+        margin-bottom: 20px;
+    }
+  }
+}

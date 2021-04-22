@@ -19,7 +19,7 @@ import { ChatDocument, MessageDocument } from './schemas/chat.schema';
 import { Observable } from 'rxjs';
 
 @WebSocketGateway()
-export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class ChatGateway {
   constructor(
     private readonly chatService: ChatService,
     @InjectModel('Chat') private readonly chatModel: Model<ChatDocument>,
@@ -27,25 +27,25 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private readonly messageModel: Model<MessageDocument>
   ) {}
 
-  @WebSocketServer()
-  server: Server;
+  // @WebSocketServer()
+  // server: Server;
 
-  private logger: Logger = new Logger('AppGateway');
+  // private logger: Logger = new Logger('AppGateway');
 
-  @SubscribeMessage('sendMessage')
-  handleMessage(
-    client: Socket,
-    payload: string
-  ): Observable<WsResponse<any>> | any {
-    this.server.emit('send-message', payload);
-    return payload;
-  }
+  // @SubscribeMessage('sendMessage')
+  // handleMessage(
+  //   client: Socket,
+  //   payload: string
+  // ): Observable<WsResponse<any>> | any {
+  //   this.server.emit('send-message', payload);
+  //   return payload;
+  // }
 
-  handleDisconnect(client: Socket) {
-    this.logger.log(`Client disconnected: ${client.id}`);
-  }
+  // handleDisconnect(client: Socket) {
+  //   this.logger.log(`Client disconnected: ${client.id}`);
+  // }
 
-  handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log(`Client connected: ${client.id}`);
-  }
+  // handleConnection(client: Socket, ...args: any[]) {
+  //   this.logger.log(`Client connected: ${client.id}`);
+  // }
 }

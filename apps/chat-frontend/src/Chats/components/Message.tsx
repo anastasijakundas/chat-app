@@ -7,10 +7,10 @@ interface MessageProps {
   message: IMessage;
 }
 
-const Message: React.FC<MessageProps> = ({ message: { sender, text } }) => {
+const Message: React.FC<MessageProps> = ({ message: { text, sender } }) => {
   return (
     <div className={styles.message}>
-      <span>{sender.name}</span>
+      {/* <span>{sender.name}</span> */}
       <div className={styles.messageTextContainer}>{text}</div>
     </div>
   );

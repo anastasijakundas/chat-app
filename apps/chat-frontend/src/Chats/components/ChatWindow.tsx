@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 
-import Message from './Message';
+import Message from '../../common/components/Message';
 import styles from '../Chats.module.scss';
 import { IMessage } from '../../common/interfaces';
 
@@ -17,7 +17,7 @@ interface ChatWindowProps {
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({
-  chatData: { messages, title } = {},
+  chatData: { title, description, messages } = {},
   setMessageText,
   messageText,
   handleSubmitMessage,
@@ -25,9 +25,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   return (
     <Box className={styles.chatWindow}>
       <h3>{title}</h3>
+      {description && <p>{description}</p>}
       <Paper variant="outlined" square className={styles.messagesWrapper}>
         {messages?.map((message: IMessage) => (
-          <Message key={message.id} message={message} />
+          <Message key={message._id} message={message} currentUser/>
         ))}
         <form noValidate autoComplete="off" className={styles.inputForm}>
           <TextField

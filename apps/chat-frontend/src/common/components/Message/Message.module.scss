@@ -1,0 +1,18 @@
+@import '../../../common/colors.scss';
+
+.message {
+  background: $grey;
+  color: $black;
+  border-radius: 20px 20px 20px 3px;
+  display: block;
+  max-width: 35%;
+  width: max-content;
+  padding: 7px 13px 7px 13px;
+
+  &.currentUser {
+    background: $light-blue;
+    border-radius: 20px 20px 3px 20px;
+    color: $white;
+    align-self: flex-end;
+  }
+}
