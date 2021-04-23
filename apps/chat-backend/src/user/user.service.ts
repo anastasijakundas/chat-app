@@ -12,21 +12,21 @@ export class UserService {
     @InjectModel('User') private readonly userModel: Model<UserDocument>
   ) {}
 
-  create(createUserDto: CreateUserDto) {}
+  async create(createUserDto: CreateUserDto) {
+    const createdUser = new this.userModel(createUserDto);
+
+    return createdUser.save();
+  }
 
   async getUsers() {
     return this.userModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+  async findOne(googleId: string, email: string): Promise<User> {
+    // return awaitthis.userModel.findOne({ email }).exec();
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
+    const user = await this.userModel.findOne({ googleId, email }).exec();
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+    return user;
   }
 }

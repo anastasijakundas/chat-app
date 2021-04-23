@@ -12,6 +12,9 @@ export class User {
   @Prop()
   name?: string;
 
+  @Prop()
+  googleId: string;
+
   @Prop({type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' }] })
   chats?: Chat[];
 }

@@ -8,13 +8,12 @@ enum TabValuesEnum {
   chats = 'chats',
   rooms = 'rooms',
 }
-type TabValue = TabValuesEnum.chats | TabValuesEnum.rooms;
 
 const HeaderContainer = () => {
   const history = useHistory();
   const location = useLocation();
-  console.log(location.pathname, 'location');
-  const defaultTab = useMemo(() => {
+
+  const tabValue = useMemo(() => {
     if (location.pathname === `/${TabValuesEnum.rooms}`) {
       return TabValuesEnum.rooms;
     } else if (location.pathname === '/') {
@@ -23,12 +22,8 @@ const HeaderContainer = () => {
   }, [location.pathname]);
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [tabValue, setTabValue] = React.useState<TabValue>(defaultTab);
-  const open = Boolean(anchorEl);
 
-  const handleChangeTabs = (event: React.ChangeEvent, newValue: TabValue) => {
-    setTabValue(newValue);
-  };
+  const open = Boolean(anchorEl);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,6 +38,8 @@ const HeaderContainer = () => {
     handleClose();
   }, [history]);
 
+  const isLoginPage = location.pathname === '/login';
+
   return (
     <Header
       open={open}
@@ -50,8 +47,8 @@ const HeaderContainer = () => {
       handleLogoutClick={handleLogoutClick}
       handleClose={handleClose}
       anchorEl={anchorEl}
-      // handleChangeTabs={handleChangeTabs}
-      tabValue={defaultTab}
+      tabValue={tabValue}
+      isLoginPage={isLoginPage}
     />
   );
 };

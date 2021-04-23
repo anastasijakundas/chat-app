@@ -14,15 +14,14 @@ import LinkTab from '../common/components/LinkTab';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
 import styles from './Header.module.scss';
-
 interface HeaderProps {
-  // handleChangeTabs: (event: React.ChangeEvent, newValue: number) => void;
   tabValue: string;
   handleClose: () => void;
   anchorEl: Element | ((element: Element) => Element);
   handleLogoutClick: () => void;
   handleMenu: (event: any) => void;
   open: boolean;
+  isLoginPage: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -31,25 +30,23 @@ const Header: React.FC<HeaderProps> = ({
   handleLogoutClick,
   anchorEl,
   handleClose,
-  // handleChangeTabs,
   tabValue,
+  isLoginPage,
 }) => {
-  console.log(tabValue);
   return (
     <AppBar position="static" className={styles.header}>
       <Toolbar>
         <Typography variant="h6" className={styles.title}>
           Chat
         </Typography>
-        <TabContext value={tabValue}>
-        <TabList
-          // onChange={handleChangeTabs}
-          className={styles.tabs}
-        >
-          <LinkTab label="Chats" href={ROUTES.chats} value="chats" />
-          <LinkTab label="Rooms" href={ROUTES.rooms} value="rooms" />
-        </TabList>
-        </TabContext>
+        {!isLoginPage && (
+          <TabContext value={tabValue}>
+            <TabList className={styles.tabs}>
+              <LinkTab label="Chats" href={ROUTES.chats} value="chats" />
+              <LinkTab label="Rooms" href={ROUTES.rooms} value="rooms" />
+            </TabList>
+          </TabContext>
+        )}
         <IconButton
           aria-label="account of current user"
           aria-controls="menu-appbar"
