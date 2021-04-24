@@ -12,6 +12,11 @@ export const createOrUpdateUser = (data: CreateUserData): AppThunk => async (
     const response = await axios.post(createUserUrl, data);
 
     dispatch(createUser(response.data));
+    const userData = {
+      id: response.data._id,
+      name: response.data.name,
+    };
+    localStorage.setItem('user', JSON.stringify(userData));
   } catch (error) {
     console.error(error);
   }

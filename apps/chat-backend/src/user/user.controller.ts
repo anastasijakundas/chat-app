@@ -17,14 +17,11 @@ export class UserController {
   async create(@Body() createUserDto: CreateUserDto) {
     const { googleId, email } = createUserDto;
     const user = await this.userService.findOne(googleId, email);
-    console.log(user);
-    // .then((user) => {
     if (user) {
       return user;
     } else {
       return this.userService.create(createUserDto);
     }
-    // });
   }
 
   @Get('/all')

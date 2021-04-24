@@ -23,8 +23,6 @@ export class UserService {
   }
 
   async findOne(googleId: string, email: string): Promise<User> {
-    // return awaitthis.userModel.findOne({ email }).exec();
-
     const user = await this.userModel.findOne({ googleId, email }).exec();
 
     return user;
