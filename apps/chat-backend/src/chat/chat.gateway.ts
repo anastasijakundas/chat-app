@@ -16,7 +16,8 @@ import { Logger } from '@nestjs/common';
 
 import { ChatService } from './chat.service';
 import { ChatDocument, MessageDocument } from './schemas/chat.schema';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { SendMessageDto } from '../chat-room/dto/send-message.dto';
 
 @WebSocketGateway()
 export class ChatGateway {
@@ -27,25 +28,16 @@ export class ChatGateway {
     private readonly messageModel: Model<MessageDocument>
   ) {}
 
-  // @WebSocketServer()
-  // server: Server;
+  @WebSocketServer()
+  server: Server;
 
-  // private logger: Logger = new Logger('AppGateway');
+  @SubscribeMessage('sendChatMessage')
+  handleMessage(
+    @MessageBody() payload: SendMessageDto,
+    @ConnectedSocket() client: Socket
+  ): void {
+    const receivedMessage = this.chatService.pushMessage(payload);
 
-  // @SubscribeMessage('sendMessage')
-  // handleMessage(
-  //   client: Socket,
-  //   payload: string
-  // ): Observable<WsResponse<any>> | any {
-  //   this.server.emit('send-message', payload);
-  //   return payload;
-  // }
-
-  // handleDisconnect(client: Socket) {
-  //   this.logger.log(`Client disconnected: ${client.id}`);
-  // }
-
-  // handleConnection(client: Socket, ...args: any[]) {
-  //   this.logger.log(`Client connected: ${client.id}`);
-  // }
+    this.server.emit('receiveChatMessage', receivedMessage);
+  }
 }

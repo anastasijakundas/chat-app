@@ -1,45 +1,51 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useCallback,
-} from 'react';
-import { useSelector } from 'react-redux';
-import io from 'socket.io-client';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import ChatWindow from '../components/ChatWindow';
 import { chatSelector } from './../slices';
-import { USER, BASE_URL } from '../../common/constants';
+import { Message } from '@chat-application/types';
+import { receiveMessage } from '../slices';
+import socket from '../../socket';
+import { useUser, useQuery } from '../../common/hooks';
+import ChatWindow from '../../common/components/ChatWindow';
+import { getChatData } from '../thunks';
 
-interface ChatWindowContainerProps {
-  selectedChat: string;
-}
+const ChatWindowContainer: React.FC = () => {
+  const dispatch = useDispatch();
+  const { openedChat } = useSelector(chatSelector);
+  const user = useUser();
+  const query = useQuery();
 
-const ChatWindowContainer: React.FC<ChatWindowContainerProps> = ({
-  selectedChat,
-}) => {
-  const { chats } = useSelector(chatSelector);
+  const chatQueryParameter = query.get('chatId');
+
   const [messageText, setMessageText] = useState('');
-  const socket = io(BASE_URL);
 
-  const chatData = chats.find((item) => item._id === selectedChat);
+  useEffect(() => {
+    if (chatQueryParameter) {
+      dispatch(getChatData(chatQueryParameter));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    socket.on('receiveChatMessage', (message: Message) => {
+      dispatch(receiveMessage(message));
+    });
+  }, [dispatch]);
 
   const handleSubmitMessage = useCallback(() => {
     const message = {
-      sender: USER,
+      sender: user.id,
       text: messageText,
-      chatId: selectedChat,
+      id: openedChat._id,
     };
 
-    socket.emit('sendMessage', message);
+    socket.emit('sendChatMessage', message);
 
     setMessageText('');
-  }, [messageText, selectedChat]);
+  }, [messageText, openedChat._id]);
 
   return (
     <ChatWindow
-      chatData={chatData}
+      chatData={openedChat}
       messageText={messageText}
       setMessageText={setMessageText}
       handleSubmitMessage={handleSubmitMessage}

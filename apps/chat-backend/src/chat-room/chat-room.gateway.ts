@@ -14,8 +14,6 @@ import { CreateChatRoomDto } from './dto/create-chat-room.dto';
 import { UpdateChatRoomDto } from './dto/update-chat-room.dto';
 import { SendMessageDto } from './dto/send-message.dto';
 
-
-
 @WebSocketGateway()
 export class ChatRoomGateway {
   constructor(private readonly chatRoomService: ChatRoomService) {}
@@ -50,8 +48,7 @@ export class ChatRoomGateway {
     @ConnectedSocket() client: Socket
   ): void {
     const receivedMessage = this.chatRoomService.sendMessage(payload);
-    console.log(receivedMessage);
+
     this.server.emit('msgToClient', receivedMessage);
-    // return { event: 'send', data: 'Hello dear' };
   }
 }

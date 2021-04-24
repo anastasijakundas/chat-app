@@ -17,7 +17,7 @@ const HeaderContainer = () => {
   const tabValue = useMemo(() => {
     if (location.pathname === `/${TabValuesEnum.rooms}`) {
       return TabValuesEnum.rooms;
-    } else if (location.pathname === '/') {
+    } else if (location.pathname === `/${TabValuesEnum.chats}`) {
       return TabValuesEnum.chats;
     }
   }, [location.pathname]);

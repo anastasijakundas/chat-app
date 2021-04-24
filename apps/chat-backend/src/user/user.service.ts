@@ -19,7 +19,7 @@ export class UserService {
   }
 
   async getUsers() {
-    return this.userModel.find().exec();
+    return await this.userModel.find().exec();
   }
 
   async findOne(googleId: string, email: string): Promise<User> {

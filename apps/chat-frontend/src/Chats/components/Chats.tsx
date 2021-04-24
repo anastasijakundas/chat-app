@@ -18,6 +18,7 @@ interface ChatsProps {
   setFirstMessage: (firstMessage: string) => void;
   createChat: () => void;
   setSelectedUser: (selectedUser: string) => void;
+  chatQueryParameter: string;
 }
 
 const Chats: React.FC<ChatsProps> = ({
@@ -32,6 +33,7 @@ const Chats: React.FC<ChatsProps> = ({
   createChat,
   setSelectedUser,
   chats,
+  chatQueryParameter,
 }) => {
   return (
     <>
@@ -42,7 +44,7 @@ const Chats: React.FC<ChatsProps> = ({
           handleCreateChatButtonClick={handleCreateChatButtonClick}
           chats={chats}
         />
-        <ChatWindow selectedChat={selectedChat} />
+        {chatQueryParameter && <ChatWindow />}
       </Box>
       <CreateChatModal
         open={isCreateChatModalOpened}

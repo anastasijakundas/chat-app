@@ -16,9 +16,8 @@ function LoginPageContainer() {
       email: profileObj.email,
       name: profileObj.name,
     };
-
-    dispatch(createOrUpdateUser(userData));
     history.push(ROUTES.chats);
+    dispatch(createOrUpdateUser(userData));
   };
 
   const handleFailure = (res) => {

@@ -23,9 +23,7 @@ const ChatRoomsPageContainer: React.FC = () => {
     []
   );
 
-  const [room, setRoom] = useState<CreateChatRoomData>(
-    defaultRoomState
-  );
+  const [room, setRoom] = useState<CreateChatRoomData>(defaultRoomState);
   const [isModalOpened, setModalOpened] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +59,7 @@ const ChatRoomsPageContainer: React.FC = () => {
 
   const handleJoinClick = useCallback(
     (roomId: string) => {
-      history.push(`${ROUTES.rooms}/${roomId }`);
+      history.push(`${ROUTES.rooms}/${roomId}`);
     },
     [history]
   );

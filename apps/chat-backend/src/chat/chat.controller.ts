@@ -23,10 +23,19 @@ export class ChatController {
     }
   }
 
-  @Get('/:userId')
+  @Get('/userChats/:userId')
   getChats(@Param('userId') userId: string) {
     try {
       return this.chatService.getChats(userId);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  @Get('/:chatId')
+  getChatyId(@Param('chatId') chatId: string) {
+    try {
+      return this.chatService.getChat(chatId);
     } catch (err) {
       console.log(err);
     }

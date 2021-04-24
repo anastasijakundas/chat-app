@@ -5,6 +5,7 @@ import { UserDocument } from '../user/schemas/user.schema';
 
 import { CreateChatDto } from './dto/create-chat.dto';
 import { Chat, ChatDocument, MessageDocument } from './schemas/chat.schema';
+import { SendMessageDto } from '../chat-room/dto/send-message.dto';
 
 @Injectable()
 export class ChatService {
@@ -47,27 +48,29 @@ export class ChatService {
       .exec();
   }
 
-  async pushMessage(data) {
+  pushMessage(data: SendMessageDto) {
     const message = new this.messageModel({
       sender: data.sender,
       text: data.text,
     });
 
-    this.chatModel.findByIdAndUpdate(
-      data.chatId,
-      {
+    this.chatModel
+      .findByIdAndUpdate(data.id, {
         $push: {
           messages: message,
         },
-      },
-      (err, result) => {
-        if (err) {
-          console.log(err, 'err');
-        } else {
-          console.log(result, 'result');
-        }
-      }
+      })
+      .exec();
+
+    return message;
+  }
+
+  async getChat(chatId: string) {
+    return (
+      this.chatModel
+        .findById(chatId)
+        // .populate({ path: 'chats', populate: { path: 'messages.sender' } })
+        .exec()
     );
   }
-  // async getChatDetails
 }

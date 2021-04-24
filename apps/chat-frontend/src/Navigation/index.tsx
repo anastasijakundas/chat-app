@@ -13,7 +13,7 @@ import PrivateRoute from './PrivateRoute';
 const Navigation = () => {
   return (
     <Switch>
-      <PrivateRoute exact path={ROUTES.chats} component={Chats} />
+      <PrivateRoute path={ROUTES.chats} component={Chats} />
       <PrivateRoute
         exact
         path={ROUTES.rooms}

@@ -17,7 +17,7 @@ export class ChatRoomService {
     @InjectModel('Message')
     private readonly messageModel: Model<MessageDocument>
   ) {}
-  createChatRoom(createChatRoomDto: CreateChatRoomDto)  {
+  createChatRoom(createChatRoomDto: CreateChatRoomDto) {
     const createdChatRoom = new this.chatRoomModel(createChatRoomDto);
     return createdChatRoom.save();
   }
