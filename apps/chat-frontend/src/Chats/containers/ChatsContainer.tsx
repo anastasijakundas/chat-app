@@ -5,15 +5,16 @@ import { useHistory } from 'react-router-dom';
 import Chats from '../components/Chats';
 import { getUsers, createNewChat, getChats } from '../thunks';
 import { chatSelector } from './../slices';
-import { USER } from '../../common/constants';
 import { ROUTES } from '../../Navigation/constants';
-import { useQuery } from '../../common/hooks';
+import { useQuery, useUser } from '../../common/hooks';
 
 const ChatsContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const query = useQuery();
   const chatQueryParameter = query.get('chatId');
+
+  const user = useUser();
 
   const { users, chats, openedChat } = useSelector(chatSelector);
   const [isCreateChatModalOpened, setCreateChatModalOpened] = useState(false);
@@ -35,27 +36,39 @@ const ChatsContainer: React.FC = () => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const handleCloseChatCreationModal = () => {
+  const handleCloseChatCreationModal = useCallback(() => {
     setCreateChatModalOpened(false);
-  };
+  }, []);
 
-  const createChat = () => {
+  const createChat = useCallback(() => {
+    const recipient = users.find((item) => item._id === selectedUser);
+
     const chatData = {
-      participants: [selectedUser, USER], // TODO change to authenticated user
-      message: { sender: USER, text: firstMessage },
+      participants: [selectedUser, user.id],
+      message: { sender: user.id, text: firstMessage },
+      title: recipient.name,
     };
+    console.log(chatData);
     dispatch(createNewChat(chatData));
 
     setFirstMessage('');
-  };
+    handleCloseChatCreationModal();
+  }, [
+    user.id,
+    firstMessage,
+    dispatch,
+    selectedUser,
+    handleCloseChatCreationModal,
+    users,
+  ]);
 
   useEffect(() => {
-    dispatch(getChats('6068e7b86bbb4b1c3c6d548c'));
-  }, [dispatch]);
+    dispatch(getChats(user.id));
+  }, [dispatch, user.id]);
 
   const availableUsers = useMemo(
-    () => users.filter((user) => user._id !== USER),
-    [users]
+    () => users.filter((item) => item._id !== user.id),
+    [users, user.id]
   );
 
   return (
@@ -73,6 +86,7 @@ const ChatsContainer: React.FC = () => {
         setSelectedUser={setSelectedUser}
         chats={chats}
         chatQueryParameter={chatQueryParameter}
+        selectedUser={selectedUser}
       />
     </div>
   );

@@ -5,40 +5,27 @@
 
 .chatsListContainer {
   width: 30vw;
+
+  .createChatButton {
+    margin-left: 15px;
+  }
+
+  .list {
+    width: 100%;
+  }
 }
 
-.list {
-  width: 100%;
-}
+.createChatDialog {
+  padding: 40px;
 
-.chatWindow {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-
-  .messagesWrapper {
-    height: 100%;
+  .createChatForm {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
 
-    .message {
-      display: flex;
-      flex-direction: column;
-      margin-top: 10px;
-
-      .messageTextContainer {
-        max-width: 150px;
-        background-color: pink;
-        border-radius: 20px;
-        min-height: 40px;
-        padding: 5px 7px;
-      }
-    }
-
-    .inputForm {
-      display: flex;
-      justify-content: center;
+    & > div {
+        margin-bottom: 20px;
     }
   }
 }
+
+

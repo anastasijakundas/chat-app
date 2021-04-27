@@ -5,6 +5,7 @@ import ChatsList from './ChatsList';
 import ChatWindow from '../containers/ChatWindowContainer';
 import CreateChatModal from './CreateChatModal';
 import styles from '../Chats.module.scss';
+import { User } from '../../common/interfaces';
 
 interface ChatsProps {
   handleListItemClick: (item: string) => void;
@@ -14,11 +15,12 @@ interface ChatsProps {
   isCreateChatModalOpened: boolean;
   handleCloseChatCreationModal: () => void;
   firstMessage: string;
-  users: any; // TODO add user type
+  users: User[];
   setFirstMessage: (firstMessage: string) => void;
   createChat: () => void;
   setSelectedUser: (selectedUser: string) => void;
   chatQueryParameter: string;
+  selectedUser: string;
 }
 
 const Chats: React.FC<ChatsProps> = ({
@@ -34,6 +36,7 @@ const Chats: React.FC<ChatsProps> = ({
   setSelectedUser,
   chats,
   chatQueryParameter,
+  selectedUser,
 }) => {
   return (
     <>
@@ -54,6 +57,7 @@ const Chats: React.FC<ChatsProps> = ({
         setFirstMessage={setFirstMessage}
         createChat={createChat}
         setSelectedUser={setSelectedUser}
+        selectedUser={selectedUser}
       />
     </>
   );

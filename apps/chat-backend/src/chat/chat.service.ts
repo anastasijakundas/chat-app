@@ -18,8 +18,7 @@ export class ChatService {
 
   async create(createChatDto: CreateChatDto) {
     const chatData = {
-      title: 'New 123',
-      participants: createChatDto.participants,
+      ...createChatDto,
       messages: [createChatDto.message],
     };
     const createdChat = new this.chatModel(chatData);
@@ -30,47 +29,50 @@ export class ChatService {
         {
           $push: { chats: createdChat._id },
         },
-        (err, result) => {
+        (err) => {
           if (err) {
             console.log(err, 'err');
-          } else {
-            console.log(result, 'result');
           }
         }
       );
     });
+    return createdChat.save();
   }
 
   async getChats(userId: string) {
-    return this.userModel
-      .findById(userId)
-      .populate({ path: 'chats', populate: { path: 'messages.sender' } })
-      .exec();
+    return await this.userModel.findById(userId).populate('chats').exec();
   }
 
-  pushMessage(data: SendMessageDto) {
+  async pushMessage(data: SendMessageDto) {
+    // try {
     const message = new this.messageModel({
       sender: data.sender,
       text: data.text,
     });
 
-    this.chatModel
-      .findByIdAndUpdate(data.id, {
-        $push: {
-          messages: message,
+    const chat = await this.chatModel
+      .findByIdAndUpdate(
+        data.id,
+        {
+          $push: {
+            messages: message,
+          },
         },
-      })
+        { new: true }
+      )
+      .populate({ path: 'messages', populate: { path: 'sender' } })
       .exec();
-
-    return message;
+    return chat;
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // TODO send only message now a whole chat
   }
 
   async getChat(chatId: string) {
-    return (
-      this.chatModel
-        .findById(chatId)
-        // .populate({ path: 'chats', populate: { path: 'messages.sender' } })
-        .exec()
-    );
+    return this.chatModel
+      .findById(chatId)
+      .populate({ path: 'messages', populate: { path: 'sender' } })
+      .exec();
   }
 }

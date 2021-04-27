@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Button from '@material-ui/core/Button';
 
 import styles from '../Chats.module.scss';
 
@@ -28,7 +29,15 @@ const ChatsList: React.FC<ChatsListProps> = ({
         subheader={
           <ListSubheader component="div" id="nested-list-subheader">
             Chats
-            <button onClick={handleCreateChatButtonClick}>Create +</button>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="small"
+              onClick={handleCreateChatButtonClick}
+              className={styles.createChatButton}
+            >
+              Create +
+            </Button>
           </ListSubheader>
         }
         className={styles.list}

@@ -33,7 +33,7 @@ export class ChatController {
   }
 
   @Get('/:chatId')
-  getChatyId(@Param('chatId') chatId: string) {
+  getChatById(@Param('chatId') chatId: string) {
     try {
       return this.chatService.getChat(chatId);
     } catch (err) {

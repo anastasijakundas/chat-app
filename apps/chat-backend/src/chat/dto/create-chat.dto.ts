@@ -18,4 +18,7 @@ export class CreateChatDto {
 
     @Type(() => MessageDto)
     message: MessageDto;
+
+    @IsString()
+    title: string;
 }

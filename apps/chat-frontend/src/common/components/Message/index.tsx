@@ -2,24 +2,30 @@ import React from 'react';
 import classNames from 'classnames';
 
 import styles from './Message.module.scss';
-import { Message as IMessage } from '@chat-application/types';
+// import { Message as IMessage } from '@chat-application/types';
+import { IMessage } from '../../../common/interfaces';
 
 interface MessageProps {
   message: IMessage;
-  currentUser: boolean;
+  isCurrentUser: boolean;
 }
 
 const Message: React.FC<MessageProps> = ({
   message: { text, sender },
-  currentUser,
+  isCurrentUser,
 }) => {
+  const messageWrapperClasses = classNames(styles.messageWrapper, {
+    [styles.currentUser]: isCurrentUser,
+  });
   const messageClasses = classNames(styles.message, {
-    [styles.currentUser]: currentUser,
+    [styles.currentUser]: isCurrentUser,
   });
   return (
-    <div className={messageClasses}>
-      {/* <span>{sender.name}</span> */}
-      <div className={styles.messageTextContainer}>{text}</div>
+    <div className={messageWrapperClasses}>
+      <span>{sender.name}</span>
+      <div className={messageClasses}>
+        <div className={styles.messageTextContainer}>{text}</div>
+      </div>
     </div>
   );
 };

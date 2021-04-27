@@ -32,9 +32,11 @@ export class ChatRoomController {
   }
 
   @Get('/:chatRoomId')
-  getChatRoomById(@Param('chatRoomId') chatRoomId: string) {
+  async getChatRoomById(@Param('chatRoomId') chatRoomId: string) {
     try {
-      return this.chatRoomService.getChatRoom(chatRoomId);
+      const chatRoom = await this.chatRoomService.getChatRoom(chatRoomId);
+
+      return chatRoom;
     } catch (err) {
       console.log(err);
     }

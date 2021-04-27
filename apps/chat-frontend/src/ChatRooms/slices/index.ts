@@ -3,6 +3,7 @@ import { $CombinedState, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '../../redux/store';
 import { RootState } from '../../redux/rootReducer';
 import { ChatRoom, Message } from '@chat-application/types';
+import { IMessage } from './../../common/interfaces';
 
 export interface Room {
     title: string;
@@ -41,7 +42,7 @@ export const chatRoomSlice = createSlice({
     getRoom: (state, { payload }: PayloadAction<any>) => {
       state.openedRoom = payload;
     },
-    receiveMessage: (state, { payload }: PayloadAction<Message>) => {
+    receiveMessage: (state, { payload }: PayloadAction<IMessage>) => {
       state.openedRoom.messages.push(payload);
     },
   },

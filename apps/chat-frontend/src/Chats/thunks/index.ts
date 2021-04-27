@@ -38,7 +38,7 @@ export const getChats = (userId): AppThunk => async (dispatch) => {
   try {
     const response = await axios.get(`${getChatsUrl}/${userId}`);
 
-    dispatch(getUsersChats(response.data));
+    dispatch(getUsersChats(response.data.chats));
   } catch (error) {
     console.error(error);
   }

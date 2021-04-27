@@ -12,6 +12,8 @@ export class Message {
 
   @Prop()
   text: string;
+
+  _id: string;
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);

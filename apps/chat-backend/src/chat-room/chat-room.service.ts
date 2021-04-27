@@ -27,12 +27,10 @@ export class ChatRoomService {
   }
 
   async getChatRoom(chatRoomId: string) {
-    return (
-      this.chatRoomModel
-        .findById(chatRoomId)
-        // .populate({ path: 'chats', populate: { path: 'messages.sender' } })
-        .exec()
-    );
+    return this.chatRoomModel
+      .findById(chatRoomId)
+      // .populate({ path: 'messages', populate: { path: 'sender' } })
+      .exec();
   }
 
   sendMessage(data: SendMessageDto) {

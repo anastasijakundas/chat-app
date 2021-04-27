@@ -8,6 +8,7 @@ import socket from '../../socket';
 import { useUser, useQuery } from '../../common/hooks';
 import ChatWindow from '../../common/components/ChatWindow';
 import { getChatData } from '../thunks';
+import { IMessage } from '../../common/interfaces';
 
 const ChatWindowContainer: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,11 +24,11 @@ const ChatWindowContainer: React.FC = () => {
     if (chatQueryParameter) {
       dispatch(getChatData(chatQueryParameter));
     }
-  }, [dispatch]);
+  }, [dispatch, chatQueryParameter]);
 
   useEffect(() => {
-    socket.on('receiveChatMessage', (message: Message) => {
-      dispatch(receiveMessage(message));
+    socket.on('receiveChatMessage', (response) => {
+      dispatch(receiveMessage(response));
     });
   }, [dispatch]);
 
@@ -41,7 +42,7 @@ const ChatWindowContainer: React.FC = () => {
     socket.emit('sendChatMessage', message);
 
     setMessageText('');
-  }, [messageText, openedChat._id]);
+  }, [messageText, openedChat._id, user.id]);
 
   return (
     <ChatWindow

@@ -32,11 +32,11 @@ export class ChatGateway {
   server: Server;
 
   @SubscribeMessage('sendChatMessage')
-  handleMessage(
+  async handleMessage(
     @MessageBody() payload: SendMessageDto,
     @ConnectedSocket() client: Socket
-  ): void {
-    const receivedMessage = this.chatService.pushMessage(payload);
+  ) {
+    const receivedMessage = await this.chatService.pushMessage(payload);
 
     this.server.emit('receiveChatMessage', receivedMessage);
   }

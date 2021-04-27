@@ -7,10 +7,10 @@ import SendIcon from '@material-ui/icons/Send';
 
 import Message from '../Message';
 import styles from './ChatWindow.module.scss';
-import { IMessage, ChatData } from '../../interfaces';
+import { IMessage, ChatData, Chat } from '../../interfaces';
 
 interface ChatWindowProps {
-  chatData: ChatData;
+  chatData: Chat | any;
   setMessageText: (messageText: string) => void;
   messageText: string;
   handleSubmitMessage: () => void;
@@ -28,8 +28,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       {description && <p>Description: {description}</p>}
       <Paper variant="outlined" square className={styles.messagesWindow}>
         <div className={styles.messagesWrapper}>
-          {messages?.map((message: any) => (
-            <Message key={message._id} message={message} currentUser />
+          {messages?.map((message: IMessage) => (
+            <Message key={message._id} message={message} isCurrentUser />
           ))}
         </div>
         <form noValidate autoComplete="off" className={styles.inputForm}>

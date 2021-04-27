@@ -11,15 +11,17 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import styles from '../Chats.module.scss';
+import { User } from '../../common/interfaces';
 
 interface CreateChatModalProps {
   open: boolean;
   handleClose: () => void;
-  users: any; // TODO add user type
+  users: User[];
   firstMessage: string;
   setFirstMessage: (firstMessage: string) => void;
   createChat: () => void;
   setSelectedUser: (selectedUser: string) => void;
+  selectedUser: string;
 }
 
 const CreateChatModal: React.FC<CreateChatModalProps> = ({
@@ -30,21 +32,25 @@ const CreateChatModal: React.FC<CreateChatModalProps> = ({
   setFirstMessage,
   createChat,
   setSelectedUser,
+  selectedUser,
 }) => {
   return (
     <Dialog
       open={open}
       onClose={handleClose}
-      maxWidth="xl"
       aria-labelledby="simple-dialog-title"
+      classes={{
+        paper: styles.createChatDialog,
+      }}
     >
       <DialogTitle id="simple-dialog-title">Create chat</DialogTitle>
       <List>
         {users.map((user) => (
           <ListItem
-            key={user.id}
+            key={user._id}
             button
             onClick={() => setSelectedUser(user._id)}
+            selected={user._id === selectedUser}
           >
             <ListItemAvatar>
               <Avatar>
@@ -55,7 +61,7 @@ const CreateChatModal: React.FC<CreateChatModalProps> = ({
           </ListItem>
         ))}
       </List>
-      <form noValidate autoComplete="off">
+      <form noValidate autoComplete="off" className={styles.createChatForm}>
         <TextField
           id="outlined-basic"
           variant="outlined"
