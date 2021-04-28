@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common';
 import { ChatRoomService } from './chat-room.service';
 import { CreateChatRoomDto } from './dto/create-chat-room.dto';
-// import { ChatRoom } from '@chat-application/types';
 
 @Controller('chatRoom')
 export class ChatRoomController {
@@ -32,11 +31,9 @@ export class ChatRoomController {
   }
 
   @Get('/:chatRoomId')
-  async getChatRoomById(@Param('chatRoomId') chatRoomId: string) {
+  getChatRoomById(@Param('chatRoomId') chatRoomId: string) {
     try {
-      const chatRoom = await this.chatRoomService.getChatRoom(chatRoomId);
-
-      return chatRoom;
+      return  this.chatRoomService.getChatRoom(chatRoomId);
     } catch (err) {
       console.log(err);
     }

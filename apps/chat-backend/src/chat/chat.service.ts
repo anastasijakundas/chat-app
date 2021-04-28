@@ -44,7 +44,6 @@ export class ChatService {
   }
 
   async pushMessage(data: SendMessageDto) {
-    // try {
     const message = new this.messageModel({
       sender: data.sender,
       text: data.text,
@@ -63,9 +62,6 @@ export class ChatService {
       .populate({ path: 'messages', populate: { path: 'sender' } })
       .exec();
     return chat;
-    // } catch (err) {
-    //   console.log(err);
-    // }
     // TODO send only message now a whole chat
   }
 

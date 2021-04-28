@@ -8,14 +8,14 @@ import { IMessage } from './../../common/interfaces';
 export interface Room {
     title: string;
     description: string;
-    creator: any;
+    creator: string;
     id: string;
     messages: Message[];
   }
 
 export interface RoomsState {
   rooms: ChatRoom[];
-  openedRoom: any; // TODO add type
+  openedRoom: Room; // TODO add type
 }
 
 export const initialState: RoomsState = {
@@ -39,11 +39,11 @@ export const chatRoomSlice = createSlice({
     createRoom: (state, { payload }: PayloadAction<ChatRoom>) => {
       state.rooms.push(payload);
     },
-    getRoom: (state, { payload }: PayloadAction<any>) => {
+    getRoom: (state, { payload }: PayloadAction<Room>) => {
       state.openedRoom = payload;
     },
-    receiveMessage: (state, { payload }: PayloadAction<IMessage>) => {
-      state.openedRoom.messages.push(payload);
+    receiveMessage: (state, { payload }: PayloadAction<Room>) => {
+      state.openedRoom.messages = payload.messages;
     },
   },
 });

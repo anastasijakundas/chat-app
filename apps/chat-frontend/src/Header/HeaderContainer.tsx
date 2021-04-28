@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useGoogleLogout } from 'react-google-login';
 
 import Header from './Header';
@@ -11,18 +11,14 @@ enum TabValuesEnum {
 }
 
 const HeaderContainer = () => {
-  const location = useLocation();
   const history = useHistory();
 
-  const tabValue = useMemo(() => {
-    if (location.pathname === `/${TabValuesEnum.rooms}`) {
-      return TabValuesEnum.rooms;
-    } else if (location.pathname === `/${TabValuesEnum.chats}`) {
-      return TabValuesEnum.chats;
-    }
-  }, [location.pathname]);
-
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openedTab, setOpenedTab] = useState(TabValuesEnum.chats);
+
+  const handleTabChange = useCallback((event, value) => {
+    setOpenedTab(value);
+  }, []);
 
   const open = Boolean(anchorEl);
 
@@ -46,7 +42,9 @@ const HeaderContainer = () => {
       '722721211283-kjpol1a4t26uhb13kpsmf1tg8kug719n.apps.googleusercontent.com',
   });
 
-  const isLoginPage = location.pathname === '/login';
+  const handleLogoClick = useCallback(() => {
+    history.push(ROUTES.chats);
+  }, [history]);
 
   return (
     <Header
@@ -55,8 +53,9 @@ const HeaderContainer = () => {
       handleLogoutClick={signOut}
       handleClose={handleClose}
       anchorEl={anchorEl}
-      tabValue={tabValue}
-      isLoginPage={isLoginPage}
+      tabValue={openedTab}
+      handleTabChange={handleTabChange}
+      handleLogoClick={handleLogoClick}
     />
   );
 };

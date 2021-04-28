@@ -43,11 +43,11 @@ export class ChatRoomGateway {
   }
 
   @SubscribeMessage('msgToServer')
-  sendMessage(
+  async sendMessage(
     @MessageBody() payload: SendMessageDto,
     @ConnectedSocket() client: Socket
-  ): void {
-    const receivedMessage = this.chatRoomService.sendMessage(payload);
+  ) {
+    const receivedMessage = await this.chatRoomService.sendMessage(payload);
 
     this.server.emit('msgToClient', receivedMessage);
   }

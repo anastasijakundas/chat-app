@@ -29,21 +29,20 @@ export class ChatRoomService {
   async getChatRoom(chatRoomId: string) {
     return this.chatRoomModel
       .findById(chatRoomId)
-      // .populate({ path: 'messages', populate: { path: 'sender' } })
+      .populate({ path: 'messages', populate: { path: 'sender' } })
       .exec();
   }
 
-  sendMessage(data: SendMessageDto) {
+  async sendMessage(data: SendMessageDto) {
     const message = new this.messageModel({
       sender: data.sender,
       text: data.text,
     });
-    this.chatRoomModel
+    return await this.chatRoomModel
       .findByIdAndUpdate(data.id, {
         $push: { messages: message },
-      })
+      }, { new: true })
+      .populate({ path: 'messages', populate: { path: 'sender' } })
       .exec();
-
-    return message.populate('sender');
   }
 }

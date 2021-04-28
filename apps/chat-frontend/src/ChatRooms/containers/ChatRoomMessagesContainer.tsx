@@ -25,8 +25,8 @@ const ChatRoomMessagesContainer = () => {
   }, [dispatch, chatRoomId]);
 
   useEffect(() => {
-    socket.on('msgToClient', (message: IMessage) => {
-      dispatch(receiveMessage(message));
+    socket.on('msgToClient', (content) => {
+      dispatch(receiveMessage(content));
     });
   }, [dispatch]);
 

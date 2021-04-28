@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Tab from '@material-ui/core/Tab';
 
 interface LinkTabProps {
   label?: string;
-  href?: string;
+  to?: string;
   value?: string;
 }
 
 function LinkTab(props: LinkTabProps) {
   return (
     <Tab
-      component="a"
+      component={Link}
       onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         // event.preventDefault();
       }}
