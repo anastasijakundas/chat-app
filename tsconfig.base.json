@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@chat-application/types": ["libs/types/src/index.ts"]
+      "@chat-application/types": ["libs/types/src/index.ts"],
+      "@chat-application/constants": ["libs/constants/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

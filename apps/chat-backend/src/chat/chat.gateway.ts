@@ -3,41 +3,24 @@ import {
   SubscribeMessage,
   MessageBody,
   WebSocketServer,
-  ConnectedSocket,
-  OnGatewayConnection,
-  OnGatewayDisconnect,
-  WsResponse,
 } from '@nestjs/websockets';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import * as mongoose from 'mongoose';
-import { Server, Socket } from 'socket.io';
-import { Logger } from '@nestjs/common';
+import { Server } from 'socket.io';
 
 import { ChatService } from './chat.service';
-import { ChatDocument, MessageDocument } from './schemas/chat.schema';
-import { from, Observable } from 'rxjs';
 import { SendMessageDto } from '../chat-room/dto/send-message.dto';
+import { CHAT_SOCKETS } from '@chat-application/constants';
 
 @WebSocketGateway()
 export class ChatGateway {
-  constructor(
-    private readonly chatService: ChatService,
-    @InjectModel('Chat') private readonly chatModel: Model<ChatDocument>,
-    @InjectModel('Message')
-    private readonly messageModel: Model<MessageDocument>
-  ) {}
+  constructor(private readonly chatService: ChatService) {}
 
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage('sendChatMessage')
-  async handleMessage(
-    @MessageBody() payload: SendMessageDto,
-    @ConnectedSocket() client: Socket
-  ) {
+  @SubscribeMessage(CHAT_SOCKETS.sendMessage)
+  async handleMessage(@MessageBody() payload: SendMessageDto): Promise<void> {
     const receivedMessage = await this.chatService.pushMessage(payload);
 
-    this.server.emit('receiveChatMessage', receivedMessage);
+    this.server.emit(CHAT_SOCKETS.receiveMessage, receivedMessage);
   }
 }

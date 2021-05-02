@@ -12,7 +12,17 @@ export interface Message {
   text: string;
 }
 
-// export interface ExtendedChatRoom extends ChatRoom {
-  
-// }
+export interface IUser {
+  _id: string;
+  chats: IChat[];
+  googleId: string;
+  name: string;
+  title: string;
+}
 
+export interface IChat {
+  _id: string;
+  participants: IUser[];
+  title: string;
+  messages: Message[];
+}

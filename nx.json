@@ -22,6 +22,7 @@
       "implicitDependencies": ["chat-frontend"]
     },
     "chat-backend": { "tags": [] },
-    "types": { "tags": [] }
+    "types": { "tags": [] },
+    "constants": { "tags": [] }
   }
 }

@@ -1,22 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserDocument } from '../user/schemas/user.schema';
 
+import { User, UserDocument } from '../user/schemas/user.schema';
 import { CreateChatDto } from './dto/create-chat.dto';
-import { Chat, ChatDocument, MessageDocument } from './schemas/chat.schema';
+import { Chat, ChatDocument } from './schemas/chat.schema';
+import { Message, MessageDocument } from './schemas/message.schema';
 import { SendMessageDto } from '../chat-room/dto/send-message.dto';
 
 @Injectable()
 export class ChatService {
   constructor(
-    @InjectModel('Chat') private readonly chatModel: Model<ChatDocument>,
-    @InjectModel('User') private readonly userModel: Model<UserDocument>,
-    @InjectModel('Message')
+    @InjectModel(Chat.name) private readonly chatModel: Model<ChatDocument>,
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(Message.name)
     private readonly messageModel: Model<MessageDocument>
   ) {}
 
-  async create(createChatDto: CreateChatDto) {
+  async create(createChatDto: CreateChatDto): Promise<Chat> {
     const chatData = {
       ...createChatDto,
       messages: [createChatDto.message],
@@ -36,14 +37,15 @@ export class ChatService {
         }
       );
     });
+
     return createdChat.save();
   }
 
-  async getChats(userId: string) {
+  async getChats(userId: string): Promise<User> {
     return await this.userModel.findById(userId).populate('chats').exec();
   }
 
-  async pushMessage(data: SendMessageDto) {
+  async pushMessage(data: SendMessageDto): Promise<Chat> {
     const message = new this.messageModel({
       sender: data.sender,
       text: data.text,
@@ -61,12 +63,12 @@ export class ChatService {
       )
       .populate({ path: 'messages', populate: { path: 'sender' } })
       .exec();
+    
     return chat;
-    // TODO send only message now a whole chat
   }
 
-  async getChat(chatId: string) {
-    return this.chatModel
+  async getChat(chatId: string): Promise<Chat> {
+    return await this.chatModel
       .findById(chatId)
       .populate({ path: 'messages', populate: { path: 'sender' } })
       .exec();

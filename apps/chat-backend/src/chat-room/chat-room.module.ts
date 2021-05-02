@@ -6,7 +6,7 @@ import { ChatRoomGateway } from './chat-room.gateway';
 import { ChatRoomSchema } from './schemas/chat-room.schema';
 import { UserModule } from '../user/user.module';
 import { ChatRoomController } from './chat-room.controller';
-import { MessageSchema } from '../chat/schemas/chat.schema';
+import { MessageSchema } from '../chat/schemas/message.schema';
 
 @Module({
   imports: [

@@ -6,7 +6,7 @@ import { UserDocument } from '../user/schemas/user.schema';
 import { CreateChatRoomDto } from './dto/create-chat-room.dto';
 import { ChatRoomDocument } from './schemas/chat-room.schema';
 import { SendMessageDto } from './dto/send-message.dto';
-import { MessageDocument } from '../chat/schemas/chat.schema';
+import { MessageDocument } from '../chat/schemas/message.schema';
 
 @Injectable()
 export class ChatRoomService {

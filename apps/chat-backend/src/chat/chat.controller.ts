@@ -3,23 +3,26 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
+  Logger,
 } from '@nestjs/common';
+
 import { ChatService } from './chat.service';
 import { CreateChatDto } from './dto/create-chat.dto';
+
 
 @Controller('chat')
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
+
+  private readonly logger = new Logger(ChatController.name);
 
   @Post('/create')
   createChat(@Body() createChatDto: CreateChatDto) {
     try {
       return this.chatService.create(createChatDto);
     } catch (err) {
-      console.log(err);
+      this.logger.error('Something went wrong with chat creation');
     }
   }
 
@@ -28,7 +31,7 @@ export class ChatController {
     try {
       return this.chatService.getChats(userId);
     } catch (err) {
-      console.log(err);
+      this.logger.error('Something went wrong with getting chats');
     }
   }
 
@@ -37,7 +40,7 @@ export class ChatController {
     try {
       return this.chatService.getChat(chatId);
     } catch (err) {
-      console.log(err);
+      this.logger.error('Something went wrong with getting chat info');
     }
   }
 }

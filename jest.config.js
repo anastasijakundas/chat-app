@@ -3,5 +3,6 @@ module.exports = {
     '<rootDir>/apps/chat-frontend',
     '<rootDir>/apps/chat-backend',
     '<rootDir>/libs/types',
+    '<rootDir>/libs/constants',
   ],
 };
